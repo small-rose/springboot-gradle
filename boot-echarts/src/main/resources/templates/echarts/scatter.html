@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="tpl/parts :: head('Echarts-demo')"></head>
+<style type="text/css" th:replace="tpl/parts :: myStyle" ></style>
+<body>
+<!-- 使用的模板地址
+https://freefrontend.com/bootstrap-sidebars/
+
+https://codepen.io/rijdz/pen/zybbVK
+-->
+<nav th:replace="tpl/parts :: navtop('Echarts-demo')"></nav>
+
+<!--msb: main sidebar-->
+<div th:replace="tpl/parts :: siderbar('${active}')"></div>
+
+<!--main content wrapper-->
+<div class="mcw">
+    <!--navigation here-->
+    <!--main content view-->
+    <div class="cv">
+        <div class="inbox">
+            <div class="inbox-bx container-fluid container">
+                <!--<div class="row">
+                     Echarts-Demo
+                </div>-->
+                <div class="row  ">
+                    <div class="col-sm-6" >
+                        <iframe id="c_iframe" height="400px" width="500px" frameborder="no" scrolling="no" src="baseScatterHtml"></iframe>
+                    </div>
+                    <div class="col-sm-6" >
+                        <iframe id="c_iframe2" height="400px" width="500px" frameborder="no" scrolling="no" src="baseScatterHtml2"></iframe>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-6" >
+                        <div id="display-container1" style="height:400px;width:500px"  ></div>
+                    </div>
+                    <div class="col-sm-6" >
+                        <div id="display-container2" style="height:400px;width:500px"  ></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    var basePath = [[${basePath}]];  // request(后台是user)
+    //var pages = [[${session.user}]];  // session(后台是user)
+</script>
+<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"
+        integrity="sha512-ivdGNkeO+FTZH5ZoVC4gS4ovGSiWc+6v60/hvHkccaMN2BXchfKdvEZtviy5L4xSpF8NPsfS0EVNSGf+EsUdxA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="application/javascript">
+    let chart1 = echarts.init(document.getElementById("display-container1"));
+    let chart2 = echarts.init(document.getElementById("display-container2"));
+
+
+    (function(){
+        $('#msbo').on('click', function(){
+            $('body').toggleClass('msb-x');
+        });
+
+        $.ajax({
+            url: basePath+"/linechartJson",
+            context: "application/json",
+            success: function(data){
+                let option = data ;
+                console.log(eval(option));
+                chart1.setOption(eval(option));
+            }
+        });
+
+        $.ajax({
+            url: basePath+"/lineAreaChart",
+            context: "application/json",
+            success: function(data){
+                let option = data ;
+                chart2.setOption(option);
+            }
+        });
+
+    }());
+</script>
+</html>

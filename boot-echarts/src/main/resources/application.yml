@@ -1,0 +1,12 @@
+server:
+  port: 8018
+  servlet:
+    context-path: /echarts
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8 #编码
+    suffix: .html #模板后缀
+    mode: HTML #模板
