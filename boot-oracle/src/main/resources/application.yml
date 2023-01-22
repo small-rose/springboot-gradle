@@ -1,0 +1,15 @@
+
+server:
+  port: 8010
+  servlet:
+    context-path: /page-demo
+
+
+
+spring:
+  datasource:
+    #ORACLE:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.10.118:1521:orcl
+    username: bvis
+    password: bvis123
