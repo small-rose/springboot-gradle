@@ -1,4 +1,4 @@
-package com.small.demo.boot.music.musicList;
+package com.small.demo.boot.chatgpt3;
 
 import com.theokanning.openai.OpenAiService;
 import com.theokanning.openai.completion.CompletionChoice;
@@ -21,7 +21,8 @@ public class Gpt3Test {
     public static void main(String[] args) {
         String token = Gpt3Test.key ;//System.getenv("OPENAI_TOKEN");
         OpenAiService service = new OpenAiService(token, Duration.ofSeconds(55));
-
+        System.out.println(System.getProperty("file.encoding"));
+        System.out.println("请求结束");
         System.out.println("\nCreating completion...");
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .prompt("Q: Please answer in Chinese, 今天上海的天气咋样?\\n A:")
@@ -38,6 +39,7 @@ public class Gpt3Test {
         for (CompletionChoice choice : choices) {
             System.out.println(choice.getText());
         }
-        System.out.println("请求结束");
+
+
     }
 }
