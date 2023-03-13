@@ -3,7 +3,9 @@ package com.small.demo.threads.works.dao.impl;
 import com.small.demo.threads.works.dao.AmsTaskProcedureTdDao;
 import com.small.demo.threads.works.pojo.AmsTaskProcedureTd;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,8 +28,10 @@ public class AmsTaskProcedureTdDaoImpl implements AmsTaskProcedureTdDao {
 
     @Override
     public List<AmsTaskProcedureTd> getAllProcedureTdList() {
-        String sql = " select * from AMS_TASK_PROCEDURE_TD " ;
-
-        return jdbcTemplate.queryForList(sql, AmsTaskProcedureTd.class);
+        // 查开启的任务， 暂将 2 设定为 启用
+        String sql = " select * from AMS_TASK_PROCEDURE_TD d where d.ifvalid = '2' " +
+                " order by d.procedure_order" ;
+        RowMapper<AmsTaskProcedureTd> rowMapper = new BeanPropertyRowMapper<>(AmsTaskProcedureTd.class);
+        return jdbcTemplate.query(sql, rowMapper);
     }
 }

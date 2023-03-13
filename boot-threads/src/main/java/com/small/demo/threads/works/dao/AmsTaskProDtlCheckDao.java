@@ -12,19 +12,21 @@ import com.small.demo.threads.works.pojo.AmsTaskProcedureDetailTd;
  **/
 public interface AmsTaskProDtlCheckDao {
 
-    Long countPolicyMirror(AmsTaskProcedureDetailTd detailTd);
+    int countPolicyMirror(AmsTaskProcedureDetailTd detailTd);
 
-    Long countBeforeMirror(AmsTaskProcedureDetailTd detailTd);
+    int countBeforeMirror(AmsTaskProcedureDetailTd detailTd);
 
-    Long countOrder(AmsTaskProcedureDetailTd detailTd);
+    int countOrder(AmsTaskProcedureDetailTd detailTd);
 
-    Long countParallel(AmsTaskProcedureDetailTd detailTd);
+    int countParallel(AmsTaskProcedureDetailTd detailTd);
 
-    long countFlagSyn(AmsTaskProcedureDetailTd detailTd);
+    int countFlagSyn(AmsTaskProcedureDetailTd detailTd);
 
-    long countFlagSleepStart(AmsTaskProcedureDetailTd detailTd);
+    int countFlagSleepStart(AmsTaskProcedureDetailTd detailTd);
 
-    long countFlagPolicInsurance(AmsTaskProcedureDetailTd detailTd);
+    int countFlagPolicInsurance(AmsTaskProcedureDetailTd detailTd);
 
-    long countFlagPolicyMirrorHLW(AmsTaskProcedureDetailTd detailTd);
+    int countFlagPolicyMirrorHLW(AmsTaskProcedureDetailTd detailTd);
+
+    int countRunningDtl(AmsTaskProcedureDetailTd taskDtl);
 }

@@ -21,55 +21,50 @@ public class AmsTaskProDtlCheckDaoImpl implements AmsTaskProDtlCheckDao {
     private JdbcTemplate jdbcTemplate ;
 
     @Override
-    public Long countPolicyMirror(AmsTaskProcedureDetailTd detailTd) {
-        String sql = "select count(1) " +
-                "    From ams_policyinsurancematch_ti t\n" +
-                "    where t.status in( '0','2','3')\n" +
-                "    and exists (\n" +
-                "           select 1 From ams_switchcontrol_detail_tc t1 where t1.name='BASE_DB_ACCT' and t1.value=t.subcompany\n" +
-                "       and  exists (\n" +
-                "             select 1 from ams_sysdefaultset_tc t2 where t2.sysdbcode=t1.value1\n" +
-                "             )\n" +
-                "           )";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+    public int countPolicyMirror(AmsTaskProcedureDetailTd detailTd) {
+        String sql = "select count(1) From ams_mirror_td t where t.mirrortype='4' and " +
+                "    t.status in ('1','2') and t.mirrordate=trunc(sysdate)-1" +
+                "    and  exists (" +
+                "    select 1 From ams_task_procedure_param_td tq where tq.procedure_id="+detailTd.getProcedureId()+" and tq.param_value=t.subcompany\n" +
+                "    )";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public Long countBeforeMirror(AmsTaskProcedureDetailTd detailTd) {
+    public int countBeforeMirror(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1) From ams_mirror_td t where t.mirrortype='5' and\n" +
                 "    t.status in ('1','2') and t.mirrordate=trunc(sysdate)-1\n" +
                 "    and  exists (\n" +
                 "    select 1 From ams_task_procedure_param_td tq where tq.procedure_id="+detailTd.getProcedureId()+" and tq.param_value=t.subcompany\n" +
                 "    )";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public Long countOrder(AmsTaskProcedureDetailTd detailTd) {
+    public int countOrder(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1)  from ams_task_procedure_detail_td d\n" +
                 "  where d.ifvalid = '1'\n" +
                 "  and d.task_id=" + detailTd.getTaskId()+
                 "  and d.procedure_order< " +detailTd.getProcedureOrder() +
                 "  and sysdate between d.executstart_date and d.executend_date\n" +
                 "  order by d.procedure_order";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public Long countParallel(AmsTaskProcedureDetailTd detailTd) {
-        String sql = "select count(1) into count_flag\n" +
-                "   from ams_task_procedure_detail_td d\n" +
-                "  where d.procedure_status in ('02')\n" +
+    public int countParallel(AmsTaskProcedureDetailTd detailTd) {
+        String sql = "select count(1) from ams_task_procedure_detail_td d" +
+                "  where d.procedure_status in ('02') " +
                 "  and d.task_id= " + detailTd.getTaskId()+
                 "  and d.procedure_level= " + detailTd.getProcedureLevel() +
-                "  and sysdate between d.executstart_date and d.executend_date\n" +
-                "  and d.ifvalid='1'\n" +
+                "  and sysdate between d.executstart_date and d.executend_date " +
+                "  and d.ifvalid='1' " +
                 "  order by d.procedure_order";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public long countFlagSyn(AmsTaskProcedureDetailTd detailTd) {
+    public int countFlagSyn(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1)  " +
                 "  From ams_task_procedure_detail_td d\n" +
                 "  where d.procedure_status in ('02','01')\n" +
@@ -78,11 +73,11 @@ public class AmsTaskProDtlCheckDaoImpl implements AmsTaskProDtlCheckDao {
                 "  and nvl(d.creater,1)<nvl("+detailTd.getCreater()+",1)\n" +
                 "  and d.ifvalid='1' " +
                 "  order by d.procedure_order";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public long countFlagSleepStart(AmsTaskProcedureDetailTd detailTd) {
+    public int countFlagSleepStart(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1) " +
                 "  from ams_task_procedure_detail_td d\n" +
                 "  where d.ifvalid = '1'\n" +
@@ -91,11 +86,11 @@ public class AmsTaskProDtlCheckDaoImpl implements AmsTaskProDtlCheckDao {
                 "  and d.procedure_level=" + detailTd.getProcedureLevel() +
                 "  and d.executstart_date between i_rec.executstart_date and i_rec.executend_date\n" +
                 "  and instr(d.procedure_falg,'[Flag_SleepEnd]')>0";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public long countFlagPolicInsurance(AmsTaskProcedureDetailTd detailTd) {
+    public int countFlagPolicInsurance(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1) " +
                 "      From ams_policyinsurancematch_ti t\n" +
                 "      where t.status in( '0','2','3')\n" +
@@ -107,11 +102,11 @@ public class AmsTaskProDtlCheckDaoImpl implements AmsTaskProDtlCheckDao {
                 "             select 1 from ams_sysdefaultset_tc t2 where t2.sysdbcode=t1.value1\n" +
                 "             )\n" +
                 "           )";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public long countFlagPolicyMirrorHLW(AmsTaskProcedureDetailTd detailTd) {
+    public int countFlagPolicyMirrorHLW(AmsTaskProcedureDetailTd detailTd) {
         String sql = "select count(1) " +
                 "      from ams_mirror_detail_td t1\n" +
                 "     where exists (select 1\n" +
@@ -121,7 +116,16 @@ public class AmsTaskProDtlCheckDaoImpl implements AmsTaskProDtlCheckDao {
                 "       and t1.mirrordate = trunc(sysdate) - 1\n" +
                 "       and t1.status = '2'\n" +
                 "       and procname = '搬迁互联网保单数据'";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public int countRunningDtl(AmsTaskProcedureDetailTd taskDtl) {
+        // 已就绪 和 执行中，都属于正在执行中
+        String sql = "select count(1) " +
+                "     from ams_task_procedure_detail_td t1" +
+                "     where t1.procedure_status in ('01','02') ";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
 

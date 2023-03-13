@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -21,6 +23,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Entity
+@Table(name = "AMS_TASK_PROCEDURE_PARAM_TD")
 public class AmsTaskProcedureParamTd {
 
     @Id
@@ -51,7 +55,7 @@ public class AmsTaskProcedureParamTd {
     /** 创建时间 **/
     @Column(name = "CREATE_TIME")
     private Date createTime ;
-    /** 执行次数 **/
+    /** 创建人 **/
     @Column(name = "CREATER")
     private BigDecimal creater ;
 }

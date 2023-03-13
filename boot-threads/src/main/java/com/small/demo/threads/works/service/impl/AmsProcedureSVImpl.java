@@ -1,5 +1,7 @@
 package com.small.demo.threads.works.service.impl;
 
+import com.small.demo.threads.works.pojo.AmsTaskProcedureLog;
+import com.small.demo.threads.works.repository.AmsTaskProcedureLogRepository;
 import com.small.demo.threads.works.service.AmsProcedureSV;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class AmsProcedureSVImpl implements AmsProcedureSV {
     @Autowired
     private JdbcTemplate jdbcTemplate ;
 
+    @Autowired
+    private AmsTaskProcedureLogRepository amsTaskProcedureLogRepository ;
     /**
      * 无参或已经拼好返回参数 无返回值
      * @param sql
@@ -120,5 +124,10 @@ public class AmsProcedureSVImpl implements AmsProcedureSV {
     }
 
 
-    
+    @Override
+    public void save(AmsTaskProcedureLog procLog) {
+        amsTaskProcedureLogRepository.save(procLog);
+    }
+
+
 }

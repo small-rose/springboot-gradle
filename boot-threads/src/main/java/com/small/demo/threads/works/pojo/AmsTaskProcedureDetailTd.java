@@ -3,8 +3,9 @@ package com.small.demo.threads.works.pojo;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.math.BigDecimal;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -17,6 +18,8 @@ import java.util.Date;
  **/
 
 @Data
+@Entity
+@Table(name = "AMS_TASK_PROCEDURE_DETAIL_TD")
 public class AmsTaskProcedureDetailTd {
 
 
@@ -26,31 +29,31 @@ public class AmsTaskProcedureDetailTd {
     private Long procedureId ;
     /** 任务编码 **/
     @Column(name = "TASK_ID")
-    private BigDecimal taskId ;
+    private Integer taskId ;
     /** 存储过程 **/
     @Column(name = "PROCEDURE_VALUE")
     private String procedureValue ;
     /** 存储过程执行级别 **/
     @Column(name = "PROCEDURE_LEVEL")
-    private BigDecimal procedureLevel ;
+    private Integer procedureLevel ;
     /** 存储过程执行顺序 **/
     @Column(name = "PROCEDURE_ORDER")
-    private BigDecimal procedureOrder ;
+    private Integer procedureOrder ;
     /** 存储过程执行状态 **/
     @Column(name = "PROCEDURE_STATUS")
     private String procedureStatus ;
     /** 存储过程是否启用 1启用 0不启用 **/
     @Column(name = "IFVALID")
-    private BigDecimal ifvalid ;
+    private Integer ifvalid ;
     /** 参数描述 **/
     @Column(name = "PROCEDURE_DESC")
     private String procedureDesc ;
     /** 允许并发数　Flag_Parallel **/
     @Column(name = "PARALLEL")
-    private BigDecimal parallel ;
+    private Integer parallel ;
     /** 任务id **/
     @Column(name = "JOB_ID")
-    private BigDecimal jobId ;
+    private Integer jobId ;
     /** 执行的日期 **/
     @Column(name = "EXECUTION_DATE")
     private String executionDate ;
@@ -59,7 +62,7 @@ public class AmsTaskProcedureDetailTd {
     private Date createTime ;
     /** 执行次数 **/
     @Column(name = "CREATER")
-    private BigDecimal creater ;
+    private Integer creater ;
     /** 存储过程执行状态,OK不走任何校验仅执行一次 **/
     @Column(name = "PROCEDURE_FALG")
     private String procedureFalg ;
@@ -81,4 +84,11 @@ public class AmsTaskProcedureDetailTd {
     /** 任务时间 **/
     @Column(name = "TASK_DATE")
     private Date taskDate ;
+
+    /** 最大错误次数 **/
+    @Column(name = "MAX_ERROR_COUNT")
+    private int maxErrorCount ;
+    /** 累计错误次数 **/
+    @Column(name = "ERROR_COUNT")
+    private int errorCount ;
 }

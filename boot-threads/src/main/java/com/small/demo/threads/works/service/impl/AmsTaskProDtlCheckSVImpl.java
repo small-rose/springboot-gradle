@@ -2,6 +2,7 @@ package com.small.demo.threads.works.service.impl;
 
 import com.small.demo.threads.works.dao.AmsTaskProDtlCheckDao;
 import com.small.demo.threads.works.pojo.AmsTaskProcedureDetailTd;
+import com.small.demo.threads.works.pojo.AmsTaskProcedureTd;
 import com.small.demo.threads.works.service.AmsTaskProDtlCheckSV;
 import com.small.demo.threads.works.service.AmsTaskProcedureDtlTdSV;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,62 +27,81 @@ public class AmsTaskProDtlCheckSVImpl implements AmsTaskProDtlCheckSV {
     private AmsTaskProcedureDtlTdSV amsTaskProcedureDtlTdSV ;
 
     @Override
-    public boolean FlagPolicyMirror(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagPolicyMirror(AmsTaskProcedureDetailTd taskDtl) {
 
         long count = amsTaskProDtlCheckDao.countPolicyMirror(taskDtl);
         return count > 0;
     }
 
     @Override
-    public boolean FlagBeforemirror(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagBeforemirror(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countBeforeMirror(taskDtl);
         return count > 0;
     }
 
     @Override
-    public boolean FlagOrder(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagOrder(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countOrder(taskDtl);
         return count <= 0;
     }
 
     @Override
-    public boolean Flag_Parallel(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flag_Parallel(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countParallel(taskDtl);
-        return count < taskDtl.getParallel().doubleValue();
+        return count < taskDtl.getParallel();
     }
 
     @Override
-    public boolean FlagSyn(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagSyn(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countFlagSyn(taskDtl);
         return count > 0;
     }
 
     @Override
-    public boolean FlagOnlyone(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagOnlyone(AmsTaskProcedureDetailTd taskDtl) {
         return amsTaskProcedureDtlTdSV.deleteTask(taskDtl.getProcedureId());
     }
 
     @Override
-    public boolean FlagPolicInsurance(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagPolicInsurance(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countFlagPolicInsurance(taskDtl);
         return count > 0;
     }
 
     @Override
-    public boolean FlagPolicyMirrorHLW(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagPolicyMirrorHLW(AmsTaskProcedureDetailTd taskDtl) {
 
         long count = amsTaskProDtlCheckDao.countFlagPolicyMirrorHLW(taskDtl);
         return count > 0;
     }
 
     @Override
-    public boolean FlagSleepStart(AmsTaskProcedureDetailTd taskDtl) {
+    public boolean flagSleepStart(AmsTaskProcedureDetailTd taskDtl) {
         long count = amsTaskProDtlCheckDao.countFlagSleepStart(taskDtl);
         return count <= 0;
     }
 
     @Override
-    public boolean FlagSleepEnd() {
+    public boolean flagSleepEnd() {
         return true;
+    }
+
+    @Override
+    public boolean flagTaskMaxParallel(AmsTaskProcedureDetailTd taskDtl, AmsTaskProcedureTd procDtlTd) {
+        //本任务正在执行的子任务数
+        int count = amsTaskProDtlCheckDao.countRunningDtl(taskDtl);
+
+        if (procDtlTd!=null ){
+            int maxParallel = procDtlTd.getMaxParallel() ;
+            // 0 就是不限制子任务的并发数
+            if (maxParallel ==0){
+                return true ;
+            }
+            //大于0 且正在执行线程数在 最大线程数范围内
+            if (maxParallel>0 &&  count < maxParallel){
+                return true;
+            }
+        }
+        return false;
     }
 }

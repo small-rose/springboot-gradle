@@ -2,6 +2,7 @@ package com.small.demo.threads.works.dao;
 
 import com.small.demo.threads.works.pojo.AmsTaskProcedureDetailTd;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,5 +19,15 @@ public interface AmsTaskProcedureDtlTdDao {
 
     int updateifvalid(Long procedureId);
 
-    int updateProcedureStatus(Long procedureId);
+    int updateProcedureStatus01(Long procedureId);
+
+    int updateProcedureStatus02(Long procedureId);
+
+    Date getNextDateByProcedureId(Long procedureId);
+
+    public int updateProcedureStatus03(Long procedureId, Date executstart_date, Date executend_date );
+
+    int updateProcedureStatus04(Long procedureId);
+
+    int updateProcedureStatus05(Long procedureId);
 }

@@ -3,7 +3,9 @@ package com.small.demo.threads.works.pojo;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,6 +18,8 @@ import java.util.Date;
  * @Version ： 1.0
  **/
 
+@Entity
+@Table(name = "AMS_TASK_PROCEDURE_TD")
 @Data
 public class AmsTaskProcedureTd {
 
@@ -26,6 +30,11 @@ public class AmsTaskProcedureTd {
     @Column(name="TASK_ID"/* , type=IdType.INPUT*/)
     private Long taskId ;
 
+
+
+    /** 存储过程 **/
+    @Column(name="MAX_PARALLEL")
+    private int maxParallel ;
     /** 存储过程 **/
     @Column(name="PROCEDURE_VALUE")
     private String procedureValue ;

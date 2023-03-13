@@ -1,5 +1,7 @@
 package com.small.demo.threads.works.tasks;
 
+import com.small.demo.threads.works.pojo.AmsTaskProcedureTd;
+
 /**
  * @Project : springboot-gradle
  * @Author : zhangzongyuan
@@ -11,5 +13,6 @@ package com.small.demo.threads.works.tasks;
 public interface AmsTaskServiceSV {
 
 
-    public void taskExecute(Long taskId);
+    public void taskExecute(AmsTaskProcedureTd procedureDtlTd);
+
 }

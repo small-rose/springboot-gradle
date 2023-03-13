@@ -16,7 +16,16 @@ public interface AmsTaskProcedureDtlTdSV {
 
     public List<AmsTaskProcedureDetailTd> getDtlListByTaskIdList(Long taskId);
 
+    public AmsTaskProcedureDetailTd getDtlByProcedureId(Long procedureId);
+
     public boolean deleteTask(Long procedureId);
 
     public boolean startTask(Long procedureId);
+
+    public boolean execTask(Long procedureId);
+
+    boolean endTask(Long procedureId);
+
+    boolean exceptionTask(Long procedureId);
+
 }

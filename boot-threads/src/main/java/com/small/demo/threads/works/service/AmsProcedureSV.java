@@ -1,5 +1,7 @@
 package com.small.demo.threads.works.service;
 
+import com.small.demo.threads.works.pojo.AmsTaskProcedureLog;
+
 import java.util.List;
 import java.util.Map;
 
@@ -40,4 +42,5 @@ public interface AmsProcedureSV {
 
 
 
+    void save(AmsTaskProcedureLog procLog);
 }
