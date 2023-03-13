@@ -1,0 +1,6 @@
+# 此为示例，非真实
+wechatmp:
+  appId: 1qaz2wsx3edc #公众号AppID
+  secret: 1qw23er4 #公众平台配置的APPSecret
+  token: zhangZXC #公众平台配置的Token
+  encodingAESKey: 1qazxcvfr45tgb #公众平台配置的EncodingAESKey

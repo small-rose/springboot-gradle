@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.5.14'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.small.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
+
+//打包方式一 执行 gradle build 命令，包在 build/libs/
+/*
+jar {
+    manifestContentCharset 'utf-8'
+    metadataCharset 'utf-8'
+    manifest {
+        attributes(
+           "Main-Class": "com.small.demo.wechat.BootWechatMpApplication"   //主函数的名称，如果只有一个main方法，可以在这里设置好。可执行jar包需要加上。
+        )
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+*/
+
+//打包方式二
+/*
+buildscript {
+    ext {
+        springBootVersion = '2.5.14'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+apply plugin: 'org.springframework.boot'
+springBoot {
+    mainClass = "com.example.Main"
+}
+
+ */

@@ -1,0 +1,14 @@
+server:
+  port: 8312
+  servlet:
+    context-path: /smallwx
+
+
+spring:
+  profiles:
+    active: dev
+
+
+logging:
+  level:
+    org.springframework: debug
