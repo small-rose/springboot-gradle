@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.small.wx'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    implementation 'commons-codec:commons-codec:1.15'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
