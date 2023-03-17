@@ -22,10 +22,10 @@ spring:
         min-idle: 0
 
 
-# 此为示例，非真实
+# 此为示例，官方测试接口生成真实
 wechatmp:
   appId: wx023c80169b061dbb #公众号AppID
-  secret: af33823c6e699354eaf52ad604d4dea9 #公众平台配置的APPSecret 如：32d4734ad70ce3a4ab964249764cba3a
+  secret: af33823c6e699354eaf52ad604d4dea9 #公众平台配置的APPSecret 如：
   token: abcdqwer #公众平台配置的Token
   encodingAESKey: 1qTestazxcvfr45tgb #公众平台配置的EncodingAESKey
 
