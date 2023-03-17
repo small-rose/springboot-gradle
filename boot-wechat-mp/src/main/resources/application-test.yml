@@ -4,7 +4,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 2
     # Redis服务器地址
-    host: 127.0.0.1
+    host: 192.168.10.184
     # Redis服务器连接端口
     port: 6379
     password: Fnd123456
@@ -27,5 +27,5 @@ wechatmp:
   appId: wx023c80169b061dbb #公众号AppID
   secret: af33823c6e699354eaf52ad604d4dea9 #公众平台配置的APPSecret 如：
   token: abcdqwer #公众平台配置的Token
-  encodingAESKey: 1qTestazxcvfr45tgb #公众平台配置的EncodingAESKey
+  encodingAESKey: 123456789WsD40rreOwREKcgpXaSJoFwkO987654321 #公众平台配置的EncodingAESKey
 

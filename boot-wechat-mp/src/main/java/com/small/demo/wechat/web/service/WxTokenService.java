@@ -3,10 +3,13 @@ package com.small.demo.wechat.web.service;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.small.demo.wechat.config.WxParamConfig;
+import com.small.demo.wechat.config.redis.RedisCache;
 import com.small.demo.wechat.web.constant.WXConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -24,6 +27,8 @@ public class WxTokenService {
     @Autowired
     private WxParamConfig wxConfig;
 
+    @Autowired
+    private RedisCache redisCache;
     /**
      * 刷新微信公众号的access_token
      * https请求:
@@ -40,7 +45,7 @@ public class WxTokenService {
         log.info("获取微信公众号的access_token: {}", result);
         String accessToken = JSON.parseObject(result).getString("access_token");
         //redis工具根据项目自行修改
-        //CacheUtils.set(redisKey, accessToken, 7200);
+        redisCache.setCacheObject(redisKey, accessToken, 7200, TimeUnit.SECONDS);
         return accessToken;
     }
 }

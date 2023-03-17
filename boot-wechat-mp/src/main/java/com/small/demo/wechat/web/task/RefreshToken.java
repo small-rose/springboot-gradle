@@ -5,6 +5,7 @@ import com.small.demo.wechat.web.service.WxTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 
 @Slf4j
+@Component
 public class RefreshToken  implements InitializingBean {
 
         @Autowired

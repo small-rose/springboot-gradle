@@ -9,6 +9,3 @@ spring:
     active: dev
 
 
-logging:
-  level:
-    org.springframework: debug
