@@ -4,5 +4,5 @@ rootProject.name  = 'small-wechat-mp'
 //bootJar.enabled = true
 
 include 'wechat-aes'
-project(':wechat-aes').projectDir = file('D:\\idea-Work\\zzy\\springboot-gradle\\wechat-aes')
-// project(':wechat-aes').projectDir( file('D:\\idea-Work\\zzy\\springboot-gradle\\wechat-aes'))
+// project(':wechat-aes').projectDir = file('D:\\idea-Work\\zzy\\springboot-gradle\\wechat-aes')
+project(':wechat-aes').projectDir=file('D:\\dev-tools-JetBrains\\idea-work\\springboot-gradle\\wechat-aes')
