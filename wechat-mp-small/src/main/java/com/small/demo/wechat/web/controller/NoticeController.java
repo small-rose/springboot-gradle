@@ -53,8 +53,8 @@ public class NoticeController {
                            @RequestParam(value = "echostr", required = false) String echostr,
                            @RequestBody(required = false) String postData) throws Exception {
         log.info("Msg接收到的POST请求: signature={}, timestamp={}, nonce={}, echostr={} postData={}", msgSignature, timestamp, nonce, echostr,postData);
-        if(TokenUtil.checkSignature(msgSignature, timestamp, nonce)){
-            log.info("微信公众号连接成功！");
+        if(!TokenUtil.checkSignature(msgSignature, timestamp, nonce)){
+            log.info("微信公众号连接Token验证失败！");
             //此处用于公众平台配置的初步接入
             return echostr;
         }

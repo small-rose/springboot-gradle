@@ -32,12 +32,12 @@ dependencies {
 
     implementation 'org.icepear.echarts:echarts-java:1.0.7'
 
-
-    compile 'org.webjars:jquery:3.1.1'
-    compile 'org.webjars:bootstrap:3.3.7'
-    compile 'org.webjars.npm:font-awesome:4.7.0'
-    compile 'net.sourceforge.nekohtml:nekohtml'
-    compile 'org.webjars:webjars-locator:0.36'
+    implementation 'org.webjars:jquery:3.1.1'
+    //compile 'org.webjars:jquery:3.1.1'
+    implementation 'org.webjars:bootstrap:3.3.7'
+    implementation 'org.webjars.npm:font-awesome:4.7.0'
+    implementation 'net.sourceforge.nekohtml:nekohtml'
+    implementation 'org.webjars:webjars-locator:0.36'
 }
 
 // 配置依赖排除规则，排除所有该依赖

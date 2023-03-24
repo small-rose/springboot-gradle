@@ -18,6 +18,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +80,10 @@ public class AmsTaskServiceImpl implements AmsTaskServiceSV {
     }
 
 
+    @PreDestroy
+    public void destroy(){
+        taskExecutor.shutdown();
+    }
 
     public void initParams(Map<Long, AmsTaskProcedureParamTd> paramsMap) {
         paramsMap.clear();
